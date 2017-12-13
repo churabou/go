@@ -1,5 +1,27 @@
-# PhotoEditor
-# go
+### go
+    plainText := []byte("plainText:0QfriiXsHrvggk3TBZ7F1w4cUErSdKhT")
+    key := []byte("dl2zJzaguTMNmhI2PWpTvEpGmcwmfMK") //256
+    iv := []byte("orbdB7iZEVqGmiNtd")//128
+
+    cbc := new(CBC256)
+    cbc.Key = key
+    cbc.IV = iv
+
+    chipherText := cbc.EncryptByCBC(plainText)
+
+    chipherTextBase64Encoded := base64.StdEncoding.EncodeToString(chipherText)
+  
+    fmt.Println("EncryptByCBC base64encoded :",chipherTextBase64Encoded)
+
+    chipherTextBase64Decoded, err := base64.StdEncoding.DecodeString(chipherTextBase64Encoded)
+     if err != nil {
+         fmt.Println("base64 decoding error:", err)
+    }
+
+    decrypted := cbc.DecryptByCBC(chipherTextBase64Decoded)
+
+    fmt.Println("Decrypted plainText:", string(decrypted[:]))
+    
 ### php
 
     $plaintext = 'plainText:0QfriiXsHrvggk3TBZ7F1w4cUErSdKhT';
